@@ -4,6 +4,7 @@ module.exports = {
 	getAll,
 	getBy,
 	create,
+	deleteFriend,
 };
 
 function getAll() {
@@ -18,4 +19,13 @@ function create(friend) {
 	return db("friends")
 		.insert(friend)
 		.then(([id]) => getBy({ id }));
+}
+
+function deleteFriend(id) {
+	return getBy({ id }).then(([friend]) => {
+		return db("friends")
+			.where({ id })
+			.del()
+			.then(() => friend);
+	});
 }

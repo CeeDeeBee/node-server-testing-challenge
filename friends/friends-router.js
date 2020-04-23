@@ -24,4 +24,15 @@ router.post("/", (req, res) => {
 	}
 });
 
+router.delete("/:id", (req, res) => {
+	Friends.deleteFriend(req.params.id)
+		.then((friend) => {
+			res.status(200).json(friend);
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).json({ error: err.message });
+		});
+});
+
 module.exports = router;
